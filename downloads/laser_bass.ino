@@ -40,7 +40,6 @@
 //    - Pitch bend range message sent on startup
 //
 #define BLOCKED_STATE HIGH
-// LOW  = receiver outputs LOW when beam is broken
 
 // Label pins (const int for READ ONLY):
 const int LASER_PINS[4] = { 2, 3, 4, 5 };
