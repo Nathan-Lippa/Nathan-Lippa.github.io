@@ -68,9 +68,9 @@
                     <li><a href="https://abra-electronics.com/ics-semiconductors/linear-series/lm2902-quad-op-amp-dip-14.html">Quad-Op Amp 5V</a> </li>
                     <li><a href="https://abra-electronics.com/solar-products/solar-cells-chargers-modules/0-1-watt/prt-09541-miniature-solar-cell-bpw34-prt-09541.html">Minuature Solar Cell x4</a> </li>
                     <li><a href="https://www.sparkfun.com/softpot-membrane-potentiometer-200mm.html">Membrane potentiometers x4</a></li>
-                    <li>10k&Omega Resistor x4</li>
-                    <li>1k&Omega Resistor x5</li>
-                    <li>12k&Omega Resistor x1</li>
+                    <li>10k&Omega; Resistor x4</li>
+                    <li>1k&Omega; Resistor x5</li>
+                    <li>12k&Omega; Resistor x1</li>
                     <li>Some colourful wires</li>
                 </ul>
             </section>
@@ -78,11 +78,39 @@
             was required! Using a simple voltage divider circuit and simple measurements of voltage across the solar cells, 
             the op amps will trigger output when the voltage across the solar cell drops below the threshold defined by the 
             voltage divider. For my setup, the solar cells had a voltage of ~550mV when the laser shone on the active area, 
-            ~240mV in ambient lighting, and 0mV in the dark. So, I tuned my voltage divider threshold to ~300mV (R1 = 12k&Omega, 
-            R2 = 1k&Omega). I used the 10k&Omega resistors as current limiting in the solar cell part of my circuit, in series 
-            before the cells. The other four 1k&Omega resistors were used as current limiting withg the membrane pots. The membrane 
-            pots have a range of 10-10k&Omega Ohms, so at low resistance the current was pretty high through them, and I was a bit worried 
+            ~240mV in ambient lighting, and 0mV in the dark. So, I tuned my voltage divider threshold to ~300mV (R1 = 12k&Omega;, 
+            R2 = 1k&Omega;). I used the 10k&Omega; resistors as current limiting in the solar cell part of my circuit, in series 
+            before the cells. The other four 1k&Omega; resistors were used as current limiting withg the membrane pots. The membrane 
+            pots have a range of 10-10k&Omega; Ohms, so at low resistance the current was pretty high through them, and I was a bit worried 
             of damaging them. This meant I lost some of my ADC range, but by my calculations it was less than a quarter tone, so.</p>
+            <section>
+                <h4>More Progress Demos</h4>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/k5OP5W-mnrw" frameborder="0" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Fjr33co8F1o" frameborder="0" allowfullscreen></iframe>
+            </section>
+        </section>
+        <section>
+            <h5>Challenges</h5>
+            <p>There were many, many challenges that arose during this project. But, it meant I learned a lot! I was unfamiliar 
+            with a lot of the electrical component logic, and so trying to understand and problem solve my circuits was a significant challence. 
+            I'd also never soldered before! Notably, I have been having an issue with floating analog inputs into the Arduino. The problem manifests 
+            as noisy, distorted notes (random pitch bend information), and if one fret is pressed, the pitch bend is applied to each string. 
+            However, if all four strings are pressed, the instrument behaves as normal. Unfortunately, the softpots don't have a datasheet available online, 
+            and so I have to sort of guess how they work. But, my hypothesis is that when the softpot isn't pressed, it's an open circuit (infinite 
+            resistance). Thus, the analog inputs are floating, and for some reason will pick up on the only signal available, which is the one travelling 
+            in the adjacent inputs. I haven't fully figured out this problem yet though. Another issue that arose is I fried a few of my solar cells.
+            Thankfully I bought extras, but this was quite tricky to deal with. Laser-cell alignment was also incredibly, incredibly difficult. 
+            The active area on the cells is miniscule (2.5mm x 2.5mm), and so getting the beam to shine just right and stay there was a 
+            significant challenge.
+            </p>
+            <p>
+            Thankfully, I had a lot of great instruction and advice from the lab techs in the Physics department, 
+            and this whole project would not have been possible without the resources available to me in the Physics Makerspace. Particularly, 
+            the availablity of 3D printers throughout this project to test parts and iteratively modify aspects of the design was invaluable. 
+            I'd never done any sort of 3D modelling before this project, so that was also a huge challenge, but really good learning experience. 
+            The CAD for this project was based off of an opensource template I found on OnShape, but was heavily modified for my use case 
+            (as well as the printer plate size). The files are downloadable in the .zip at the top of the page, or by clicking on the image below.</p>
+            <a href="downloads/laser-midi-guitar-CAD-03-04-2026.stl" download="laser-midi-guitar-CAD-03-04-2026.stl"> <img src="projects/laser-midi-pictures/CAD screenshot.png" alt="LaserMIDICAD screenshot.png" width=200></a>
         </section>
     </main>
 </body>
