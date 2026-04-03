@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musical Instrument Design - Your Name</title>
+    <title>Laser MIDI Guitar</title>
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 2rem; color: #333; }
         h1, h2, h3 { color: #111; }
@@ -14,30 +14,75 @@
     </style>
 </head>
 <body>
-    <a href="../index.html" class="back-link">&larr; Back to Home</a>
+    <a href="../index.html" class="back-link">&larr; back</a>
     
     <header>
-        <h1>Musical Instrument Design</h1>
-        <p><strong>Date:</strong> October 2025 | <strong>Tags:</strong> Hardware, C++, CAD</p>
+        <h1>Laser MIDI Guitar</h1>
+        <p><strong>Published:</strong> April 2026 | <strong>Updated:</strong> April 2026</p>
     </header>
 
     <main>
         <section>
-            <h2>Overview</h2>
-            <p>This project involved designing a custom digital musical instrument from scratch. The goal was to create an ergonomic, highly responsive controller that could map physical inputs to MIDI outputs efficiently.</p>
+            <h2>Objectives</h2>
+            <p>The original goal of this project was to create a MIDI controller for a hardware synthesizer using the Ardunio Uno. Specifically,
+                the goal was to create a laser guitar, inspired by Jeff Schmidt's <a href="https://www.instructables.com/The-Prism-A-Laser-Synth-Guitar/">Prism.</a>
+                However, this class was focused on the Arduino and PureData, so I wanted to design a version built off of those frameworks!
+                I didn't quite get to the hardware MIDI integration, but it was a part of the original objective.
+                </p>
         </section>
 
         <section class="downloads">
             <h2>Project Files</h2>
             <ul>
-                <li><a href="../downloads/instrument-cad-files.zip">Download CAD Files (.STL format)</a></li>
-                <li><a href="https://github.com/yourusername/instrument-repo">View Source Code on GitHub</a></li>
+                <li><a href="../downloads/laser-midi-guitar.zip">Download my files (.INO, .pd, and .STL formats)</a></li>
             </ul>
         </section>
 
         <section>
             <h2>Methodology & Build Process</h2>
-            <p>The enclosure was modeled using parametric CAD software and 3D printed in PETG for durability. The internal electronics are driven by a microcontroller running custom firmware designed to minimize latency...</p>
+            <p>Before I could do anything, really, I had to make sure that the code and logical architecture of the project was functioning.
+            This meant that I needed to create a "simplest version" of my final goal. This was the button synthesizer! Using just the components that
+            came in our starter kit, I wrote the code, modified PureData, and was able to test out the simplest version. The button 
+            synthesizer worked as a good analogue to the final version in several ways. Primarily, the buttons were sent to the 
+            digital inputs, which would take a binary input of whether or not the button was pressed (analogous to the blocking of a laser 
+            "string"). Then, the rotary potentiometer worked as an analogue to the linear membrane softpots I had in mind for the frets 
+            of the guitar (variable resitance values sent to the analog inputs of the Arduino). </p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Ed9GCsSADbA" frameborder="0" allowfullscreen></iframe>
+            <img src="projects/laser-midi-pictures/button-rotary-demo.jpg" alt="button demo image">
+            <a href="downloads/FinalSynth.pd" download="FinalSynth.pd"> <img src="projects/laser-midi-pictures/puredata-finalsynth-image-ref.png" alt="click to download"></a>
+            <p><small>Quick note: because the original architecture was designed for functionality with hardware MIDI, 
+            the PureData patch and .ino file look different to what we've been working with in class. Instead of using the 
+            arduino2midi Pd converter, the code I wrote send pure MIDI information in the form of bytes. Thus, if I ever get around to 
+            connecting the serial output on the Ardunio to a hardware MIDI port, the code will work without issue.</small></p>
+            <p>Now that I knew my code was functioning as intended, I was able to start designing the laser hardware, which was a lot more difficult than the buttons.
+            Finding the right components for the right price point was tricky, but with some advice from the McGill Physics department, I was
+            directed to Abra Electronics here in Montreal, and was able to find everything I needed!</p>
+            <section>
+                <h3>Parts List</h3>
+                <ul>
+                    <li>Arduino Uno x1</li>
+                    <li>Arduino Uno ProtoShield x1</li>
+                    <li>Some extra circuit board</li>
+                    <li><a href="https://abra-electronics.com/opto-illumination/lasers/am-125-red-laser-module-for-microcontroller-breakout-board.html">5V 650nm Laser Diode x4</a> </li>
+                    <li><a href="https://abra-electronics.com/power-supplies-transformers-adapters/wall-transformers-adapters/ac-dc-wall-power-adapters-9v/dc-9100-cul.html">DC Power Supply for the Arduino</a> </li>
+                    <li><a href="https://abra-electronics.com/ics-semiconductors/linear-series/lm2902-quad-op-amp-dip-14.html">Quad-Op Amp 5V</a> </li>
+                    <li><a href="https://abra-electronics.com/solar-products/solar-cells-chargers-modules/0-1-watt/prt-09541-miniature-solar-cell-bpw34-prt-09541.html">Minuature Solar Cell x4</a> </li>
+                    <li><a href="https://www.sparkfun.com/softpot-membrane-potentiometer-200mm.html">Membrane potentiometers x4</a></li>
+                    <li>10k&Omega Resistor x4</li>
+                    <li>1k&Omega Resistor x5</li>
+                    <li>12k&Omega Resistor x1</li>
+                    <li>Some colourful wires</li>
+                </ul>
+            </section>
+            <p>In order for the solar cells to behave in a binary manner (laser shining on it vs. blocked laser), the op amp 
+            was required! Using a simple voltage divider circuit and simple measurements of voltage across the solar cells, 
+            the op amps will trigger output when the voltage across the solar cell drops below the threshold defined by the 
+            voltage divider. For my setup, the solar cells had a voltage of ~550mV when the laser shone on the active area, 
+            ~240mV in ambient lighting, and 0mV in the dark. So, I tuned my voltage divider threshold to ~300mV (R1 = 12k&Omega, 
+            R2 = 1k&Omega). I used the 10k&Omega resistors as current limiting in the solar cell part of my circuit, in series 
+            before the cells. The other four 1k&Omega resistors were used as current limiting withg the membrane pots. The membrane 
+            pots have a range of 10-10k&Omega Ohms, so at low resistance the current was pretty high through them, and I was a bit worried 
+            of damaging them. This meant I lost some of my ADC range, but by my calculations it was less than a quarter tone, so.</p>
         </section>
     </main>
 </body>
