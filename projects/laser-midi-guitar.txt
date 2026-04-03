@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musical Instrument Design - Your Name</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 2rem; color: #333; }
+        h1, h2, h3 { color: #111; }
+        a { color: #0056b3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back-link { margin-bottom: 2rem; display: inline-block; }
+        .downloads { background: #f9f9f9; padding: 1rem; border-left: 4px solid #0056b3; margin: 2rem 0; }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to Home</a>
+    
+    <header>
+        <h1>Musical Instrument Design</h1>
+        <p><strong>Date:</strong> October 2025 | <strong>Tags:</strong> Hardware, C++, CAD</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Overview</h2>
+            <p>This project involved designing a custom digital musical instrument from scratch. The goal was to create an ergonomic, highly responsive controller that could map physical inputs to MIDI outputs efficiently.</p>
+        </section>
+
+        <section class="downloads">
+            <h2>Project Files</h2>
+            <ul>
+                <li><a href="../downloads/instrument-cad-files.zip">Download CAD Files (.STL format)</a></li>
+                <li><a href="https://github.com/yourusername/instrument-repo">View Source Code on GitHub</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Methodology & Build Process</h2>
+            <p>The enclosure was modeled using parametric CAD software and 3D printed in PETG for durability. The internal electronics are driven by a microcontroller running custom firmware designed to minimize latency...</p>
+        </section>
+    </main>
+</body>
+</html>

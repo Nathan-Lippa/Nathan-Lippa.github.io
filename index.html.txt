@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathan Lippa - Portfolio</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #333;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 2rem;
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #eee;
+            object-fit: cover;
+        }
+        h1, h2, h3 { color: #111; }
+        a { color: #0056b3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .project {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+        footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #ccc;
+            padding-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="picture of me for website.png" alt="Nathan Lippa" class="profile-pic">
+        <div>
+            <h1>Nathan Lippa</h1>
+            <p><strong>Undergraduate Physics and Musical Science & Technology Student</strong></p>
+            <p>This is my website with some projects I've worked on.</p>
+            <p>
+                <a href="mailto:nathan.lippa@mail.mcgill.ca">Email</a> |
+                <a href="https://github.com/Nathan-Lippa">GitHub</a> |
+                <a href="resume.pdf">Resume</a>
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <section id="projects">
+            <h2>Projects & Research</h2>
+
+            <div class="project">
+                <h3><a href="projects/musical-instrument.html">Laser MIDI Guitar</a></h3>
+                <p>Hardware and software design. Designed for Arduino and PureData. Includes downloadable CAD files for 3D printing, microcontroller codebase, and circuit schematics. Class project for MUMT 306 - Audio Computing I.</p>
+            </div>
+
+            <div class="project">
+                <h3><a href="projects/tournament-models.html">Wildfires and air quality anomalies: Smoke source attribution and characterization on the Island of Montreal</a></h3>
+                <p>Trajectory-based source-attribution model to correlate 18 years of anomalous soot concentrations in Montreal with upwind wildfire activity by integrating particle back trajectories with DBSCAN-clustered satellite hotspot data. Final Project for PHYS 404 - Climate Physics.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Nathan Lippa.</p>
+    </footer>
+</body>
+</html>
