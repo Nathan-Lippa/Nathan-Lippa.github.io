@@ -82,17 +82,17 @@
             </section>
             <p>In order for the solar cells to behave in a binary manner (laser shining on it vs. blocked laser), the op amp 
             was required! Using a simple voltage divider circuit and simple measurements of voltage across the solar cells, 
-            the op amps will trigger output when the voltage across the solar cell drops below the threshold defined by the 
+            the op amps will trigger output when the voltage across the solar cell is greater than the threshold defined by the 
             voltage divider. For my setup, the solar cells had a voltage of ~550mV when the laser shone on the active area, 
             ~240mV in ambient lighting, and 0mV in the dark. So, I tuned my voltage divider threshold to ~300mV (R1 = 12k&Omega;, 
             R2 = 1k&Omega;). I used the 10k&Omega; resistors as current limiting in the solar cell part of my circuit, in series 
-            before the cells. The other four 1k&Omega; resistors were used as current limiting withg the membrane pots. The membrane 
+            before the cells. The other four 1k&Omega; resistors were used as current limiting for the membrane pots. The membrane 
             pots have a range of 10-10k&Omega; Ohms, so at low resistance the current was pretty high through them, and I was a bit worried 
-            of damaging them. This meant I lost some of my ADC range, but by my calculations it was less than a quarter tone, so.</p>
+            I'd damage them. This meant I lost some of my ADC range, but by my calculations it was less than a quarter tone, so.</p>
             <p>The actual construction involved a LOT of 3D printing. I used the Prusa MK3, MK3+, MK3S+, and the MK4 printers all at different
             stages in the project. Each printer had strengths and weaknesses, but they were unbeknownst to be at the time of construction,
             so there wasn't really much thought put into what printer to use. I just used what was available at each point of construction!
-            This also goes for the colour. I think when I make version 2.0, I'll be a bit pickier with what colour each part will be. </p>
+            This also goes for the colour. I think when I make version 2.0, I'll be a bit pickier with what colour each part will be and how I print it. </p>
             <p>There are a lot of screws listed in the parts list, and this was for the assembly! I used the 10-32 machine screws for the neck,
             but I had to cut them to size. The two inch ones I bought were about a third of an inch too long. The flat socket head screws were
             used for the pickguard attatchment to the body, but I think round head 6-32s work better for the rest of the assembly.
