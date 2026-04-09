@@ -29,6 +29,9 @@
                 However, this class was focused on the Arduino and PureData, so I wanted to design a version built off of those frameworks!
                 I didn't quite get to the hardware MIDI integration, but it was a part of the original objective.
                 </p>
+            <p>Further inspiration came when I first began my research. How did I want to sense the laser? How did I want to sense the fret position?
+            Would it be with infrared? Ultrasonic? Or a physical touch sensor of some kind? Futher inspirations came <a href="https://www.youtube.com/watch?v=YpkzLo6yx_g">here</a>,
+            <a href="https://www.instructables.com/Quick-Arduino-MIDI-Laser-Harp/">here</a>, and <a href="https://www.instructables.com/Arduino-Laser-Harp-1/">here</a>.</p>
         </section>
 
         <section class="downloads">
@@ -54,13 +57,16 @@
             the PureData patch and .ino file look different to what we've been working with in class. Instead of using the 
             arduino2midi Pd converter, the code I wrote send pure MIDI information in the form of bytes. Thus, if I ever get around to 
             connecting the serial output on the Ardunio to a hardware MIDI port, the code will work without issue.</small></p>
-            <p>Now that I knew my code was functioning as intended, I was able to start designing the laser hardware, which was a lot more difficult than the buttons.
-            Finding the right components for the right price point was tricky, but with some advice from the McGill Physics department, I was
-            directed to Abra Electronics here in Montreal, and was able to find everything I needed!</p>
+            <p>Now that I knew my code was functioning as intended, I was able to start designing the laser hardware, which was a lot 
+            more difficult than the buttons.
+            Finding the right components for the right price point was also tricky, but with some advice from the McGill Physics department, I was
+            directed to <a href="https://abra-electronics.com/">Abra Electronics</a> here in Montreal, and was able to find everything I needed!</p>
             <section>
                 <h3>Parts List</h3>
                 <ul>
                     <li>Arduino Uno x1</li>
+                    <li>USB-B to USB male-to-male</li>
+                    <li>USB to USB female-to-female</li>
                     <li>Arduino Uno ProtoShield x1</li>
                     <li>Some extra circuit board</li>
                     <li><a href="https://abra-electronics.com/opto-illumination/lasers/am-125-red-laser-module-for-microcontroller-breakout-board.html">5V 650nm Laser Diode x4</a> </li>
@@ -73,11 +79,18 @@
                     <li>10k&Omega; Resistor x4</li>
                     <li>1k&Omega; Resistor x5</li>
                     <li>12k&Omega; Resistor x1</li>
-                    <li>Some colourful wires</li>
                     <li>100k&Omega; Resistor x4</li>
+                    <li>Some colourful wires</li>
                     <li>10-32x2 Machine Screws x4</li>
                     <li>6-32x.5 Flat Socket Head Machine Screws x8</li>
                     <li>Many 6-32x.5 Machine Screws with any head shape</li>
+                </ul>
+                <h3>Equipment List</h3>
+                <ul>
+                    <li>Multimeter / oscilloscope</li>
+                    <li>Soldering Iron and Lead (Solder Sucker was needed too)</li>
+                    <li>3D Printer with ~1kg of filament</li>
+                    <li>Superglue</li>
                 </ul>
             </section>
             <p>In order for the solar cells to behave in a binary manner (laser shining on it vs. blocked laser), the op amp 
