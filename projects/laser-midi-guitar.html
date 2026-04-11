@@ -54,6 +54,9 @@
             digital inputs, which would take a binary input of whether or not the button was pressed (analogous to the blocking of a laser 
             "string"). Then, the rotary potentiometer worked as an analogue to the linear membrane softpots I had in mind for the frets 
             of the guitar (variable resitance values sent to the analog inputs of the Arduino). </p>
+            <p><small>
+                Quick note: I refer to the potentiometers on the fretboard as membrane pots, softpots, and linear pots interchangeably!
+            </small></p>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/Ed9GCsSADbA" frameborder="0" allowfullscreen></iframe>
             <img src="../projects/laser-midi-pictures/button-rotary-demo.jpg" alt="button demo image" width=600>
             <a href="downloads/FinalSynth.pd" download="FinalSynth.pd"> <img src="../projects/laser-midi-pictures/puredata-finalsynth-image-ref.png" alt="click to download" width=600></a>
@@ -351,7 +354,7 @@
             <h2>Challenges</h2>
             <p>There were many, many challenges that arose during this project. But, it meant I learned a lot! I was unfamiliar with a 
                 lot of the electrical component logic, and so trying to understand and problem solve my circuits was a significant challenge. 
-                This is where the oscilloscope and solder sucker cam in very handy. (I'd also never soldered before!)
+                This is where the oscilloscope and solder sucker came in very handy. (I'd also never soldered before!)
             </p>
             <p>One of the recurring issues was regarding floating analog inputs into the Arduino. The problem manifests 
                 as noisy, distorted notes (random pitch bend information), and if one fret is pressed, the pitch bend is applied to each string. 
@@ -362,11 +365,11 @@
                 would then be bypassed when the fret was pressed (path of least resistance!).
             </p>
             <p>
-                Another issue that occurs on occasion is that PureData sometimes misses to setup messages, and doesn't set the range for the 
-                pitch bend correctly. THis results in the default pitch bend range, with is up a semitone across the entire fretboard.
-                Obviously, this is not ideal, but the fix is pretty simple. All it requires is a press of the reset button on the Arduino.
-                However, this button can't be reached without taking apart the whole guitar! This is one of the top priorities to fix for 
-                version 2.0. 
+                Another issue that occured on occasion is that PureData sometimes misses to setup messages, and doesn't set the range for the 
+                pitch bend correctly. This results in the default pitch bend range, with is up a semitone across the entire fretboard.
+                Obviously, this is not ideal, but the fix was pretty simple. All it requires is a press of the reset button on the Arduino.
+                However, this button can't be reached without taking apart the whole guitar! So, the alternative was a loadbang in PureData that 
+                sends the same message.
             </p>
             <p>I also fried a few of my solar cells. Thankfully I bought extras, but this was quite tricky to deal
                 with. My hypothesis is that the heat of the soldering iron caused to internal components to cook. Maybe cold solder next time?
