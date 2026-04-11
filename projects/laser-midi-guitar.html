@@ -18,7 +18,7 @@
     
     <header>
         <h1>Laser MIDI Guitar</h1>
-        <p><strong>Published:</strong> April 2026 | <strong>Updated:</strong> April 9th 2026</p>
+        <p><strong>Published:</strong> April 2026 | <strong>Updated:</strong> April 11th 2026</p>
     </header>
 
     <main>
@@ -49,7 +49,7 @@
             <h2>Methodology & Build Process</h2>
             <p>Before I could do anything, really, I had to make sure that the code and logical architecture of the project was functioning.
             This meant that I needed to create a "simplest version" of my final goal. This was the button synthesizer! Using just the components that
-            came in our starter kit, I wrote the code, modified PureData, and was able to test out the simplest version. The button 
+            came in the <a href="https://www.amazon.ca/dp/B01D8KOZF4/">starter kit</a>, I wrote the code, modified PureData, and was able to test out the simplest version. The button 
             synthesizer worked as a good analogue to the final version in several ways. Primarily, the buttons were sent to the 
             digital inputs, which would take a binary input of whether or not the button was pressed (analogous to the blocking of a laser 
             "string"). Then, the rotary potentiometer worked as an analogue to the linear membrane softpots I had in mind for the frets 
@@ -61,13 +61,15 @@
             <img src="../projects/laser-midi-pictures/button-rotary-demo.jpg" alt="button demo image" width=600>
             <a href="downloads/FinalSynth.pd" download="FinalSynth.pd"> <img src="../projects/laser-midi-pictures/puredata-finalsynth-image-ref.png" alt="click to download" width=600></a>
             <p><small>Quick note: because the original architecture was designed for functionality with hardware MIDI, 
-            the PureData patch and .ino file look different to what we've been working with in class. Instead of using the 
+            the PureData patch and .ino file look different to the pseudo-MIDI we did in class. Instead of using the 
             arduino2midi Pd converter, the code I wrote send pure MIDI information in the form of bytes. Thus, if I ever get around to 
-            connecting the serial output on the Ardunio to a hardware MIDI port, the code will work without issue.</small></p>
+            connecting the serial output on the Ardunio to a hardware MIDI port, the code will work without issue!</small></p>
             <p>Now that I knew my code was functioning as intended, I was able to start designing the laser hardware, which was a lot 
             more difficult than the buttons.
             Finding the right components for the right price point was also tricky, but with some advice from the McGill Physics department, I was
-            directed to <a href="https://abra-electronics.com/">Abra Electronics</a> here in Montreal, and was able to find everything I needed!</p>
+            directed to <a href="https://abra-electronics.com/">Abra Electronics</a> here in Montreal, and was able to find everything I needed!
+            All together, the cost of the materials for this project was ~175$, with the membrane pots taking up the majority of that (100$ after 
+            shipping and duties)!</p>
             <section>
                 <h3>Parts List</h3>
                 <ul>
@@ -98,7 +100,7 @@
                     <li>Multimeter / oscilloscope</li>
                     <li>Soldering Iron and Lead (Solder Sucker was needed too)</li>
                     <li>3D Printer with ~1kg of filament</li>
-                    <li>Superglue</li>
+                    <li>Shoe Goo</li>
                 </ul>
             </section>
             <p>In order for the solar cells to behave in a binary manner (laser shining on it vs. blocked laser), the op amp 
@@ -354,7 +356,7 @@
             <h2>Challenges</h2>
             <p>There were many, many challenges that arose during this project. But, it meant I learned a lot! I was unfamiliar with a 
                 lot of the electrical component logic, and so trying to understand and problem solve my circuits was a significant challenge. 
-                This is where the oscilloscope and solder sucker came in very handy. (I'd also never soldered before!)
+                This is where the oscilloscope and solder sucker came in very handy. (I'd also never soldered before this project!)
             </p>
             <p>One of the recurring issues was regarding floating analog inputs into the Arduino. The problem manifests 
                 as noisy, distorted notes (random pitch bend information), and if one fret is pressed, the pitch bend is applied to each string. 
@@ -365,11 +367,11 @@
                 would then be bypassed when the fret was pressed (path of least resistance!).
             </p>
             <p>
-                Another issue that occured on occasion is that PureData sometimes misses to setup messages, and doesn't set the range for the 
+                Another issue that occured on occasion is that PureData sometimes misses the setup messages, and doesn't set the range for the 
                 pitch bend correctly. This results in the default pitch bend range, with is up a semitone across the entire fretboard.
                 Obviously, this is not ideal, but the fix was pretty simple. All it requires is a press of the reset button on the Arduino.
                 However, this button can't be reached without taking apart the whole guitar! So, the alternative was a loadbang in PureData that 
-                sends the same message.
+                sends the same message, which can be seen in the picture of my Pd patch above.
             </p>
             <p>I also fried a few of my solar cells. Thankfully I bought extras, but this was quite tricky to deal
                 with. My hypothesis is that the heat of the soldering iron caused to internal components to cook. Maybe cold solder next time?
