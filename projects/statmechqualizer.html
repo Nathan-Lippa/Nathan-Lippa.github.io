@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatMechQualizer</title>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                tags: 'ams'
+            }
+        };
+    </script>
+    <script async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+  
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 2rem; color: #333; }
+        h1, h2, h3 { color: #111; }
+        a { color: #0056b3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back-link { margin-bottom: 2rem; display: inline-block; }
+        .downloads { background: #f9f9f9; padding: 1rem; border-left: 4px solid #0056b3; margin: 2rem 0; }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; back</a>
+    
+    <header>
+        <h1>StatMechQualizer</h1>
+        <p><strong>Published:</strong> November 2026 | <strong>Updated:</strong> November 26th 2026</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Introduction and Objectives</h2>
+            <p>The motivation for this project came from a recognition in class that many
+              of the filter designs we were looking at had a resemblance to the probability
+              distributions I had been working with in my statistical mechanics class,
+              PHYS 362, from last semester. These probability distributions were typically
+              studied in the context of a variety of steady-state, analytic 'particles in
+              a box' scenarios, in which probability distributions of parameters such as
+              speed or energy would change shape and form depending on the box parameters.
+              Thus, it seemed as though it could be possible to make a statistical
+              mechanics-inspired equalizer, mapping the analytic probability distribution
+              of a certain quantity to the frequency response of a digital filter.
+              Fortunately, there was a wide breadth of 'particle-in-a-box' scenarios that
+              we studied, and thus several distinct filter could be designed
+              (Maxwell-Boltzmann distributions, Fermi-Dirac distributions,
+              and Bose-Einstein distributions).
+            </p>
+            <p>Thus, the objectives of this project were to design filters for each of
+              these distinct scenarios.
+            </p>
+        </section>
+
+        <section>
+            <h2>Procedure and Theory</h2>
+            
+            <section>
+            <h3>General Configuration</h3>
+            
+            <p>
+            At the top of the script, the user is able to control several audio and
+            environmental parameters.
+            </p>
+            
+            <p>
+            In regards to the audio parameters, the user has control over thee sample
+            rate, finite impulse response length (number of taps, must be odd), the
+            type of window (Hamming, Hanning, or Blackman), the size of the
+            frequency-sampling grid, the anchor frequency for the relative mapping
+            mode, the clipping threshold, the lost probability threshold, and the
+            duration of the filtered noise.
+            </p>
+            
+            <p>
+            In terms of environmental parameters, the user first switches between
+            the <strong>classical</strong> or <strong>quantum</strong> regime.
+            </p>
+            
+            <p>
+            In the classical regime, they can control the dimensionality of the
+            system (one-, two-, or three-dimensional), the box lengths in meters,
+            the temperature of the environment (Kelvin), the boundary condition
+            (hard or periodic), the frequency mapping method (relative or absolute),
+            and the scale factor to use in absolute mode (audio Hz per transit Hz).
+            Then, the user is able to list the species types and numbers from a
+            pre-built lookup table or as custom entries (custom:amu).
+            </p>
+            
+            <p>
+            In the quantum regime, users can similarly control the diemsnionality
+            of the system, the box size (in meters, but typically in this regime
+            nanometers is recommended), the temperature (Kelvin), the boundary
+            condition (again, hard or periodic), the frequency mapping (relative
+            or absolute), and the scale factor in absolute mode (audio Hz per
+            transit Hz). In the quantum regime, the simulation only allows for
+            one particle species in the environment, which is to say NO particle
+            mixing. Thus, the user selects the particle species from the following:
+            Fermions — electron, proton, neutron, He-3, Li-6, K-40, or Massive bosons —
+            He-4, Li-7, Na-23, K-39, Rb-87. Then, the user is able to
+            select the number of particles, the thermal energy cutoff (number of
+            unoccupied levels kept), and then safety limits on memory for size
+            constraints.
+            </p>
+            </section>
+            
+            <section>
+            <h3>Regime Differentiation</h3>
+            
+            <p>
+            The following sections are distinguished in their regime by several
+            key assumptions. Firstly, a classical gas is well approximated by
+            Maxwell-Boltzmann statistics in the scenario in which the thermal
+            De Broglie wavelength, given by
+            </p>
+            
+            <div class="equation">
+            \[
+            \lambda = \frac{h}{\sqrt{2\pi m k_{b}T}},
+            \tag{1}
+            \label{eq:ThermDeBrog}
+            \]
+            </div>
+            
+            <p>
+            is much less than the average spacing between particles. This collapses
+            at either very low temperatures, in which the thermal wavelength becomes
+            very large. The classical gas approximation also requires low densities,
+            given by the condition
+            </p>
+            
+            <div class="equation">
+            \[
+            N \prod_{a=1}^d \Big(\frac{\lambda}{L_{a}}\Big) \ll 1.
+            \]
+            </div>
+            
+            <p>
+            At very high densities, which can occur at low temperatures or very
+            small box dimensions, the gas becomes degenerate, and begins to obey
+            quantum statistics instead of classical Maxwell-Boltzmann. Within the
+            script, there are safeguards to ensure that these limits are adhered
+            to, and warnings for the user if their input parameters are no longer
+            classical.
+            </p>
+            
+            <p>
+            It is also important to note that the classical regime is considered
+            in the non-relativistic limit, which is such that:
+            </p>
+            
+            <div class="equation">
+            \[
+            k_{b}T \ll mc^2
+            \tag{2}
+            \label{eq:RelLimit}
+            \]
+            </div>
+            </section>
+            
+            <section>
+            <h3>Classical Regime</h3>
+            
+            <p>
+            Due to equipartition dominating the nature of energy distributions in
+            the classical regime, with all distributions proportional to temperature
+            up to a scale factor determined by dimensionality, the classical regime
+            distribution is thus the probability distribution of particle speeds.
+            In the classical regime, energy level spacings within the box are small
+            enough such that the the gas can be describedby the Maxwell-Boltzmann
+            weight \(e^{-mv^2/2kT}\) times the number of velocity states within a
+            shell of radius \(v\), which scales as \(v^{d-1}\). For one species in
+            \(d = 1, 2\) or \(3\) dimensions this gives
+            </p>
+            
+            <div class="equation">
+            \[
+            P(v) =
+            \frac{(v^{d-1})\,(e^{-mv^2/2k_{b}T})}
+            {(2^{d/2-1})\,(\frac{k_{B}T}{m})^{d/2}\,\Gamma(d/2)},
+            \]
+            </div>
+            
+            <p>
+            where mass enters only through \(a\), and \(\Gamma(x)\) is the Gamma
+            function. The mean speed is
+            </p>
+            
+            <div class="equation">
+            \[
+            \langle v\rangle =
+            \sqrt{\frac{2k_{b}T}{m}}\,
+            \frac{\Gamma\!\left(\tfrac{d+1}{2}\right)}
+            {\Gamma\!\left(\tfrac{d}{2}\right)}.
+            \]
+            </div>
+            
+            <p>
+            Speed is converted to frequency by the rate at which it traverses the box:
+            </p>
+            
+            <div class="equation">
+            \[
+            \nu = \frac{v}{\tau L_{\text{eff}}},
+            \qquad
+            L_{\text{eff}} = \Big(\prod_{a=1}^{d} L_a\Big)^{1/d},
+            \]
+            </div>
+            
+            <p>
+            where \(\tau = 2\) for hard walls (a round trip) and \(\tau = 1\)
+            for periodic walls. A mixture is the number-weighted sum
+            </p>
+            
+            <div class="equation">
+            \[
+            P(\nu) = \sum_s x_s\, P_s(\nu),
+            \qquad
+            x_s = \frac{N_s}{\sum_{s'} N_{s'}},
+            \]
+            </div>
+            
+            <p>
+            in which s indicates species. In relative mode the audio scale is
+            </p>
+            
+            <div class="equation">
+            \[
+            \kappa = \frac{f_\text{anchor}}{\langle\nu\rangle_\text{mix}},
+            \qquad
+            \langle\nu\rangle_\text{mix}
+            = \sum_s x_s\,\frac{\langle v_s\rangle}{\tau L_\text{eff}},
+            \]
+            </div>
+            
+            <p>
+            so the mean transit frequency lands on \(f_{\text{anchor}}\).
+            </p>
+            
+            <p>
+            In this relative mode, temperature has no impact on the shape of this
+            distribution, and the 'smearing' effect of the quantity is overwritten
+            by the selection of the anchor frequency.
+            </p>
+            
+            <p>
+            However, in absolute mode \(\kappa\) is user-set, so \(T\), \(m\)
+            and \(L\) all change the filter shape, and the density on the audio
+            axis carries the Jacobian,
+            </p>
+            
+            <div class="equation">
+            \[
+            P(\nu) = P(v(\nu))\,\dfrac{dv}{d\nu}.
+            \]
+            </div>
+            
+            <!-- Original commented-out MATLAB code is omitted from the rendered page.
+                 It can be added here inside a <pre><code> block if needed. -->
+            
+            </section>
+            
+            <section>
+            <h3>Quantum Regime</h3>
+            
+            <p>
+            In a small box the allowed momenta are discrete,
+            </p>
+            
+            <div class="equation">
+            \[
+            p_a = \frac{h\, n_a}{\tau L_a},
+            \qquad
+            n_a =
+            \begin{cases}
+            1, 2, \dots & \text{hard walls} \\
+            0, \pm1, \pm2, \dots & \text{periodic,}
+            \end{cases}
+            \]
+            </div>
+            
+            <p>
+            and the kinetic energy of each level is relativistic,
+            </p>
+            
+            <div class="equation">
+            \[
+            E = \sqrt{p^2c^2 + m^2c^4} - mc^2,
+            \qquad
+            p^2 = \sum_a p_a^2.
+            \]
+            </div>
+            
+            <p>
+            Each level is filled according to
+            </p>
+            
+            <div class="equation">
+            \[
+            f(E) = \frac{1}{e^{(E-\mu)/kT} \pm 1},
+            \]
+            </div>
+            
+            <p>
+            using + for fermions (Fermi-Dirac) and − for massive bosons
+            (Bose-Einstein). For fermions and massive bosons the chemical
+            potential \(\mu\) is solved numerically such that the number of
+            state occupations add up to the particle number,
+            </p>
+            
+            <div class="equation">
+            \[
+            g\sum_i f(E_i) = N,
+            \]
+            </div>
+            
+            <p>
+            where \(g\) is the spin degeneracy from the lookup table. Each level
+            then carries a probabilistic weight and therefore the distribution
+            has mean energy
+            </p>
+            
+            <div class="equation">
+            \[
+            w_i = \frac{g\, f(E_i)}{\sum_j g\, f(E_j)},
+            \qquad
+            \langle E\rangle = \sum_i w_i E_i.
+            \]
+            </div>
+            
+            <p>
+            Relative mode maps
+            \(f_\text{audio} = \frac{f_\text{anchor}E}{\langle E\rangle}\),
+            and absolute mode maps
+            \(f_\text{audio} = \frac{\kappa\,E}{h}\) with user-set \(\kappa\).
+            A cold Fermi gas has a sharp edge at \(E_F\), and at \(T = 0\)
+            its mean energy is
+            </p>
+            
+            <div class="equation">
+            \[
+            \langle E\rangle = \frac{d}{d+2}\,E_F.
+            \]
+            </div>
+            
+            <p>
+            Anchoring \(\langle E\rangle\) therefore puts the lowpass cutoff at
+            \(\dfrac{d+2}{d}\) times the anchor frequency. It is worth noting
+            the special case in which the temperature of a three-dimensional
+            system is below \(T_c\), in which
+            </p>
+            
+            <div class="equation">
+            \[
+            T_c =
+            \frac{2\pi\hbar^2}{m k_B}
+            \left(\frac{n}{g\,\zeta(3/2)}\right)^{2/3},
+            \qquad
+            \zeta(3/2)\approx 2.612,
+            \]
+            </div>
+            
+            <p>
+            where \(\zeta(3/2)\) is the Riemann zeta function. Below \(T_c\),
+            a boson gas puts a macroscopic fraction of its particles in the
+            lowest energy level, which appears as a narrow peak.
+            </p>
+            
+            <p>
+            It is important to note that the code automatically shifts the
+            ground level energy state to zero.
+            </p>
+            </section>
+            
+            <section>
+            <h3>Finite Impulse Response Filter Design</h3>
+            
+            <p>
+            To design the finite impulse response filter, the obtained frequency
+            spectrum is mirrored and appended to account for negative frequencies.
+            </p>
+            
+            <figure>
+                <img src="../projects/statmechqualizer-pictures/Freq+NegFreq Response.png"
+                     alt="Mirrored and appended frequency spectrum for input into MATLAB ifft">
+                <figcaption>
+                    Figure 1: Mirrored and appended frequency spectrum for input into
+                    MATLAB ifft. Box parameters: 30cm$^2$, hard boundary conditions,
+                    relative mapping centered at 4400Hz, and 2e24 Helium atoms,
+                    1e24 Dinitrogen atoms, 3e23 Dioxygen atoms, 6e21 Argon atoms,
+                    and 3e20 Carbon Dioxide atoms.
+                </figcaption>
+            </figure>
+            
+            <p>
+            Then, the inverse Fourier transform is taken to obtain an impulse
+            response centred about zero. This impulse response is then windowed
+            according to the user-set window type, and then the input signal is
+            filtered based on the determined filter coefficients.
+            </p>
+            </section>
+            </section>
+            
+            <section>
+            <h2>3. Challenges</h2>
+            
+            <p>
+            There were several iterations of this project over the course of the
+            work. Initially, I considered the basis of the filter parameters to
+            come from molecular dynamics, however this would be heavily
+            computationally intensive and seemed as though it wouldn't work for
+            live input in any possible scenario. The analytic solutions to these
+            problems were also what I was more familiar with, and so it seemed
+            more appropriate to simply consider those solutions as the basis instead.
+            </p>
+            
+            <p>
+            After determining this, and beginning work on the project, there were
+            several other hurdles to overcome. Another early conceptualization of
+            implementation had a built-in understanding of the quantum/classical
+            limits, and discrete/continuum limits, and would allow for the mixing
+            of these systems. However, this proved to be very, very complicated.
+            Particularly considering the dominance of some statistics over others
+            in these scenarios (electron in a 3D quantum box has a very different
+            energy scale than \(10^6\) xenon atoms in a 3cm x 3cm 2D box).
+            </p>
+            
+            <p>
+            So, to handle to classical/quantum limit case, it seemed as though
+            the most appropriate course of action was to separate the two regimes
+            and warn the user if their input parameters in one regime appeared
+            to fit better with the other regime.
+            </p>
+            
+            <p>
+            In regards to the discrete vs. continuum limits, I had early concerns
+            that the implementation of discrete limits would look like a comb
+            filter with very narrow spacing in the frequency domain. After several
+            attempts to design the environment in the discrete limit, I realized
+            that a comb filter isn't really the kind of filter I wanted, and rather
+            I wanted the shape of the quantum filters to be that of their continuum
+            limits.
+            </p>
+            </section>
+    </main>
+</body>
+</html>
