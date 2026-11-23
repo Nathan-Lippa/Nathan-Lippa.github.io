@@ -261,9 +261,6 @@
             \]
             </div>
             
-            <!-- Original commented-out MATLAB code is omitted from the rendered page.
-                 It can be added here inside a <pre><code> block if needed. -->
-            
             </section>
             
             <section>
@@ -388,7 +385,8 @@
             
             <figure>
                 <img src="../projects/statmechqualizer-pictures/Freq+NegFreq Response.png"
-                     alt="Mirrored and appended frequency spectrum for input into MATLAB ifft">
+                     alt="Mirrored and appended frequency spectrum for input into MATLAB ifft"
+                     width=500>
                 <figcaption>
                     Figure 1: Mirrored and appended frequency spectrum for input into
                     MATLAB ifft. Box parameters: 30cm$^2$, hard boundary conditions,
@@ -406,9 +404,11 @@
             </p>
             </section>
             </section>
+
+            
             
             <section>
-            <h2>3. Challenges</h2>
+            <h2>Challenges</h2>
             
             <p>
             There were several iterations of this project over the course of the
@@ -447,6 +447,36 @@
             I wanted the shape of the quantum filters to be that of their continuum
             limits.
             </p>
+
+            <p>
+                This also had some additional added benefits. Without the consideration
+                for discrete states, all of the distributions were smooth, and thus 
+                could be easily dealt with by the filter design function. 
+            </p>
+            </section>
+            <section>
+                <h2>Examples</h2>
+                <p>
+                    Below is a sample filter design and resultant output spectrum for a test 
+                    input signal. The filter considers the following parameters:
+                    <ul>
+                      <li>Quantum regime</li>
+                      <li>Three-dimensional</li>
+                      <li>Temperature: 0.1K</li>
+                      <li>Box dimensions: [10 10 10]*1e-9</li>
+                      <li>Relative mapping: 4400Hz anchor</li>
+                      <li>Particle species and count: 2500 protons</li>
+                    </ul>
+                <img src="../projects/statmechqualizer-pictures/2DQuantumFilter.png"
+                     alt="Frequency distribution for 2D quantum filter."
+                     width=500>
+                <img src="../projects/statmechqualizer-pictures/2DQuantumFilterOutputSpectrum.png"
+                     alt="Filter input and output response with test sound file."
+                     width=500>
+                <img src="../projects/statmechqualizer-pictures/2DQuantumFilterOutputSpectrumFreq.png"
+                     alt="Filter output response in frequency domain."
+                     width=500>
+                </p>
             </section>
     </main>
 </body>
