@@ -543,16 +543,77 @@
               <details class="accordion-item">
                 <summary class="accordion-header">Quantum Regime</summary>
                 <div class="accordion-content"> 
+                  <p>
+                      In order to input the quantum regime scenario into 
+                      designLinearPhaseFir, we must obtain probDensityPerHz. 
+                      The following functions are for this purpose.
+                  </p>
                     
                   <details class="accordion-item nested">
                     <summary class="accordion-header">buildQuantumDensity</summary>
                     <div class="accordion-content">
-                      <p>Nested content inside Section 1.</p>
+                      <p>
+                          The first two code blocks obtain constants necessary for computation, 
+                          as well as grabbing species, mass, spin, and statistical type 
+                          from lookupQuantumSpecies.
+                      </p>
+                      <p>
+                          Density of states prefactor determination for the following 
+                          calculation:
+                          <div class="equation">
+                            \[
+                            dN = \frac{g * V * S_{d}}{h^{d}} * p^{d-1} dp.
+                            \]
+                          </div>
+                          where g is spin degeneracy, \(S_{d}\) is the surface area of the 
+                          unit sphere in d dimensions, \(p\) is momentum, \(h\) is the 
+                          Planck constant, \(d\) is the dimensionality of the system, and 
+                          V is the phase-space volume. This volume cancels cleanly later down the 
+                          line when solving for the chemical potential, and is thus ignored during 
+                          computation.
+                      </p>
+                      <p>
+                          The next code block simply grabs system parameters for input into 
+                          later helper functions.
+                      </p>
+                      <p>
+                          After this, the function calls solveContinuumPotential to obtain the
+                          chemical potential \(\mu\) for the system from the number density 
+                          \(n = \frac{N}{V}\), which calls integrateOccupation to do. It then 
+                          also calls integrateOccupation to obtain the mean energy of the system, 
+                          which is necessary for the frequency mapping to follow.
+                      </p>
+                      <p>
+                          For the frequency mapping, the function checks for absolute or relative 
+                          mapping, and has a safety check if the mean energy is zero (which can 
+                          occur during Bose-Einstein condensation). Then, it determines the conversion factor 
+                          audioHzPerJoule. 
+                      </p>
+                      <p>
+                          Now, we can compute probDensityHz by the computaiton of the following:
+                          <div class="equation">
+                              \[
+                              P(\nu) = \frac{g * V * S_{d}}{h^{d} * N} * p^{d-1} * f(e) * \frac{dp}{de} * \frac{de}{d\nu}
+                              \]
+                          </div>
+                          where \(e = \frac{\nu}{\text{audioHzPerJoule}}\), \(\frac{dp}{de} = \frac{1}{v}\)
+                      </p>
+                      <p>
+                          The following block first computes the nyquistMomentum, which is 
+                          simply the highest allowed momentum for the system. Then, the scale factor 
+                          for conversion between the integral occupation form and probability is obtained.
+                      </p>
+                      <p>
+                          To determine probDensityPerHz, which is our main goal, we must evaluate the 
+                          occupation of each frequency cell in phase-space first. So, we convert our audio 
+                          grid to an energy grid, and then convert it again to a momentum grid based on our 
+                          particle mass. Then, we convert it again to velocity for our 
+                      </p>
                     </div>
                   </details>
             
                   <details class="accordion-item nested">
-                    <summary class="accordion-header">Subsection 1.2</summary>
+                    <summary class="accordion-header">solveContinuumPotential</summary>
                     <div class="accordion-content">
                       <p>More nested content.</p>
                     </div>
