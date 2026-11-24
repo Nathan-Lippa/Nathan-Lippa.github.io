@@ -539,21 +539,46 @@
               <details class="accordion-item">
                 <summary class="accordion-header">Classical Regime</summary>
                 <div class="accordion-content">     
+                  <p>
+                      In order to input the classical regime scenario into 
+                      designLinearPhaseFir, we must obtain probDensityPerHz. 
+                      The following functions are for this purpose!
+                  </p>
                     
                   <details class="accordion-item nested">
                     <summary class="accordion-header">buildClassicalDensity</summary>
                     <div class="accordion-content">
-                      <p>Nested content inside Section 1.</p>
+                      <p>
+                          The first two code blocks in the function grab all of the necessary, 
+                          general systems configuration values, as well as grabbing all of the 
+                          spcies data in regards to particle types, count, masses, and names. 
+                          Additionally, it computes the mixture weights / number fractions.
+                      </p>
+                      <p>
+                          The third block is further conversions and calculations required to 
+                          make the later blocks execute smoothly. For example, defining the 
+                          thermalSpeedScale as \(\sqrt(\frac{k_{b}T}{m}\) makes later steps 
+                          easier to read and follow. Ultimately, it determines the mixtureMeantransitFreq_Hz, 
+                          which is used by the following block to determine audioHzPerTransitHz relative to 
+                          the anchor frequency or based on the scale factor for the physical frequency. 
+                      </p>
+                      <p>
+                          Now, the function is able to compute probDensityPerHz! First, it determines the 
+                          particle speed at each grid point. Then, it determines the Jacobian for the 
+                          transformation from the speed domain to the frequency domain. After this, for each 
+                          species, the Maxwell-Boltzmann distribution weight is applied for each grid point. 
+                          Finally, this is convered into probDensityPerHz by summing across the numberFractions 
+                          weighted distribution and their multiplication with the Jacobian. 
+                      </p>
+                      <p>
+                          Lastly, there are two diagnostic checks. First, it checks for speeds that would be present above the Nyquist 
+                          frequency and an associated warning to the user if more than their inputted threshold of 
+                          probability is lost above the Nyquist. Then, it checks whether the inputted parameters are 
+                          actually classical, and warns the user if the Maxwell-Boltzmann distribution 
+                          isn't accurate for their scenario. 
+                      </p>
                     </div>
-                  </details>
-            
-                  <details class="accordion-item nested">
-                    <summary class="accordion-header">Subsection 1.2</summary>
-                    <div class="accordion-content">
-                      <p>More nested content.</p>
-                    </div>
-                  </details>
-                    
+                  </details>                    
                 </div>
               </details>
             </div>
@@ -563,7 +588,7 @@
                 <summary class="accordion-header">Quantum Regime</summary>
                 <div class="accordion-content"> 
                   <p>
-                      In order to input the quantum regime scenario into 
+                      Again, in order to input the quantum regime scenario into 
                       designLinearPhaseFir, we must obtain probDensityPerHz. 
                       The following functions are for this purpose.
                   </p>
@@ -572,9 +597,9 @@
                     <summary class="accordion-header">buildQuantumDensity</summary>
                     <div class="accordion-content">
                       <p>
-                          The first two code blocks obtain constants necessary for computation, 
-                          as well as grabbing species, mass, spin, and statistical type 
-                          from lookupQuantumSpecies.
+                          Similarly to buildClassicalDensity, the first two code blocks 
+                          obtain constants necessary for computation, as well as grabbing 
+                          species, mass, spin, and statistical type from lookupQuantumSpecies.
                       </p>
                       <p>
                           Density of states prefactor determination for the following 
@@ -671,7 +696,7 @@
                           integrateOccupation is simply a helper function for the numerical integration of 
                           <div class="equation">
                               \[
-                              \int p^{d-} \cdot f(E(p)) dp
+                              \int p^{d - 1} \cdot f(E(p)) dp
                               \]
                           </div>
                       </p>
@@ -685,7 +710,7 @@
                           continuumOccupation is simply a helper function for the distribution  
                           <div class="equation">
                               \[
-                              f(E) = \frac{1}{\exp{(E - \mu) / k_{b}T} \pm 1}
+                              f(E) = \frac{1}{e^{(E - \mu) / k_{b}T} \pm 1}
                               \]
                           </div>
                           Note that MATLAB prefers expm1 for the bosonic case as it handles floating 
