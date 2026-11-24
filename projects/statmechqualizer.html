@@ -470,7 +470,12 @@
             <p>
                 This also had some additional added benefits. Without the consideration
                 for discrete states, all of the distributions were smooth, and thus 
-                could be easily dealt with by the filter design function. 
+                could be easily dealt with by the filter design function!
+            </p>
+
+            <p>
+                Regarding the filter design function, I tried several methods, particularly 
+                with the use of invfreqz. 
             </p>
             </section>
             <section>
@@ -578,7 +583,8 @@
                           isn't accurate for their scenario. 
                       </p>
                     </div>
-                  </details>                    
+                  </details>   
+                    
                 </div>
               </details>
             </div>
@@ -727,18 +733,49 @@
               <details class="accordion-item">
                 <summary class="accordion-header">Filter Design and Implementation</summary>
                 <div class="accordion-content">     
+                    <p>
+                        The following is mostly a re-hash and review of the aforementioned 
+                        filter design process earlier in the document, however I thought it 
+                        made sense to include here with the other function explanations, even 
+                        if I'm repeating myself. 
+                    </p>
                     
                   <details class="accordion-item nested">
                     <summary class="accordion-header">designLinearPhaseFir</summary>
                     <div class="accordion-content">
-                      <p>Nested content inside Section 1.</p>
+                      <p>
+                          This function operates by first treating the sampled magnitude 
+                          as a zero-phase spectrum, and then mirrors it (MATLAB wants negative 
+                          frequencies appended onto the end of the positive frequencies for ifft). 
+                          Then, the real part of the Inverse Fourier Transform of the full, 
+                          symmetric spectrum is obtained, which can be viewed as the real, 
+                          symmetric impulse response, centred at n = 0!
+                      </p>
+                      <p>
+                          After this, the impulse response is truncated according to the 
+                          circular indices (the length of which is given by the user inputted 
+                          numberOfTaps). Then, a window of the selected variety (Hanning, 
+                          Hamming, or Blackman) is applied to the truncated kernel. Finally, 
+                          the kernel is normalized, and the input signal is filtered according 
+                          to these determined parameters!
+                      </p>
                     </div>
                   </details>
             
                   <details class="accordion-item nested">
-                    <summary class="accordion-header">Subsection 1.2</summary>
+                    <summary class="accordion-header">shapeMagResp</summary>
                     <div class="accordion-content">
-                      <p>More nested content.</p>
+                      <p>
+                          This function is mostly a safety feature for any issues with 
+                          Bose-Einstein condensation that might not have been caught earlier 
+                          in the code (big spike to infinity at E = 0).
+                      </p>
+                      <p>
+                          Basically, it determines the RMS of the distribution, and then clips 
+                          the level according to the user inputted parameters, and then outputs 
+                          the signal response. It also gives clippingInfo with some extra information 
+                          regarding the clipping details, if the user desires. 
+                      </p>
                     </div>
                   </details>
                     
@@ -746,29 +783,6 @@
               </details>
             </div>
 
-            <div class="accordion">
-              <details class="accordion-item">
-                <summary class="accordion-header">General Helper Functions</summary>
-                <div class="accordion-content">    
-                    
-                  <details class="accordion-item nested">
-                    <summary class="accordion-header">getTransitLengthFactor</summary>
-                    <div class="accordion-content">
-                      <p>Nested content inside Section 1.</p>
-                    </div>
-                  </details>
-            
-                  <details class="accordion-item nested">
-                    <summary class="accordion-header">validateCommonConfig</summary>
-                    <div class="accordion-content">
-                      <p>More nested content.</p>
-                    </div>
-                  </details>
-                    
-                </div>
-              </details>
-            </div>
-            
         </section>
     </main>
 </body>
