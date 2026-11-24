@@ -136,8 +136,8 @@
                 or absolute), and the scale factor in absolute mode (audio Hz per
                 transit Hz). In the quantum regime, the simulation only allows for
                 one particle species in the environment, which is to say 
-                <span style="text-decoration: underline;">no</span> particle
-                mixing. The user then selects the particle species from the following:
+                <span style="text-decoration: underline;">no particle mixing </span>.
+                The user then selects the particle species from the following:
                 Fermions — electron, proton, neutron, He-3, Li-6, K-40, or Massive bosons —
                 He-4, Li-7, Na-23, K-39, Rb-87. After this selection, the user is able to
                 choose the number of particles, and the thermal energy cutoff (number of
@@ -206,7 +206,7 @@
             up to a scale factor determined by dimensionality, the classical regime
             distribution is thus the probability distribution of particle speeds.
             In the classical regime, energy level spacings within the box are small
-            enough such that the the gas can be describedby the Maxwell-Boltzmann
+            enough such that the the gas can be described by the Maxwell-Boltzmann
             weight \(e^{-mv^2/2kT}\) times the number of velocity states within a
             shell of radius \(v\), which scales as \(v^{d-1}\). For one species in
             \(d = 1, 2\) or \(3\) dimensions this gives
@@ -222,8 +222,7 @@
             </div>
             
             <p>
-            where mass enters only through \(a\), and \(\Gamma(x)\) is the Gamma
-            function. The mean speed is
+            where \(\Gamma(x)\) is the Gamma function. The mean speed is
             </p>
             
             <div class="equation">
@@ -318,7 +317,7 @@
                     1, 2, \dots & \text{hard walls} \\
                     0, \pm1, \pm2, \dots & \text{periodic,}
                     \end{cases}
-                    \tag{10, 11}
+                    \tag{10}
                 \]
             </div>
             
@@ -331,7 +330,7 @@
                     E = \sqrt{p^2c^2 + m^2c^4} - mc^2,
                     \qquad
                     p^2 = \sum_a p_a^2.
-                    \tag{12}
+                    \tag{11}
                 \]
             </div>
             
@@ -342,7 +341,7 @@
             <div class="equation">
                 \[
                     f(E) = \frac{1}{e^{(E-\mu)/kT} \pm 1},
-                    \tag{13}
+                    \tag{12}
                 \]
             </div>
             
@@ -355,8 +354,8 @@
             
             <div class="equation">
                 \[
-                    g\sum_i f(E_i) = N,
-                    \tag{14}
+                    g\int f(E) dE = N,
+                    \tag{13}
                 \]
             </div>
             
@@ -371,7 +370,7 @@
                     w_i = \frac{g\, f(E_i)}{\sum_j g\, f(E_j)},
                     \qquad
                     \langle E\rangle = \sum_i w_i E_i.
-                    \tag{15}
+                    \tag{14}
                 \]
             </div>
             
@@ -387,7 +386,7 @@
             <div class="equation">
                 \[
                     \langle E\rangle = \frac{d}{d+2}\,E_F.
-                    \tag{16}
+                    \tag{15}
                 \]
             </div>
             
@@ -405,7 +404,7 @@
                     \left(\frac{n}{g\,\zeta(3/2)}\right)^{2/3},
                     \qquad
                     \zeta(3/2)\approx 2.612,
-                    \tag{17}
+                    \tag{16}
                 \]
             </div>
             
@@ -416,7 +415,7 @@
             </p>
             
             <p>
-            It is important to note that the code automatically shifts the
+            It is also important to note that the code automatically shifts the
             ground level energy state to zero.
             </p>
             </section>
@@ -509,7 +508,8 @@
                 <h2>Examples</h2>
                 <p>
                     Below is a sample filter design and resultant output spectrum for a test 
-                    input signal. The filter considers the following parameters:
+                    input signal. The filter considers the following parameters at a sampling 
+                    rate of 44.1kHz:
                     <ul>
                       <li>Quantum regime</li>
                       <li>Three-dimensional</li>
@@ -531,7 +531,8 @@
 
                 <p>
                     Below is another filter design and resultant output spectrum for a test 
-                    input signal. The filter considers the following parameters:
+                    input signal. The filter considers the following parameters at a sampling 
+                    rate of 44.1kHz:
                     <ul>
                       <li>Classical regime</li>
                       <li>Three-dimensional</li>
