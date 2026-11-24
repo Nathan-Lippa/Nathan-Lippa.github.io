@@ -64,7 +64,7 @@
         <section class="downloads">
             <h2>Project Files</h2>
             <ul>
-                <li><a href="../downloads/statmechqualizerprojectfiles.zip">Download my files (.m and .wav)</a></li>
+                <li><a href="../downloads/statmechqualizerprojectfiles.zip">Download my files! (.m and .wav)</a></li>
             </ul>
         </section>
         <section>
@@ -72,7 +72,7 @@
             <p>The motivation for this project came from a recognition in class that many
               of the filter designs we were looking at had a resemblance to the probability
               distributions I had been working with in my statistical mechanics class,
-              PHYS 362, from last semester. These probability distributions were typically
+              PHYS 362. These probability distributions were typically
               studied in the context of a variety of steady-state, analytic 'particles in
               a box' scenarios, in which probability distributions of parameters such as
               speed or energy would change shape and form depending on the box parameters.
@@ -85,7 +85,7 @@
               and Bose-Einstein distributions).
             </p>
             <p>Thus, the objectives of this project were to design filters for each of
-              these distinct scenarios.
+              these distinct scenarios!
             </p>
         </section>
 
@@ -96,48 +96,49 @@
             <h3>General Configuration</h3>
             
             <p>
-            At the top of the script, the user is able to control several audio and
-            environmental parameters.
+                At the top of the script, the user is able to control several audio and
+                environmental parameters.
             </p>
             
             <p>
-            In regards to the audio parameters, the user has control over thee sample
-            rate, finite impulse response length (number of taps, must be odd), the
-            type of window (Hamming, Hanning, or Blackman), the size of the
-            frequency-sampling grid, the anchor frequency for the relative mapping
-            mode, the clipping threshold, the lost probability threshold, and the
-            duration of the filtered noise.
+                In regards to the audio parameters, the user has control over thee sample
+                rate, finite impulse response length (number of taps, must be odd), the
+                type of window (Hamming, Hanning, or Blackman), the size of the
+                frequency-sampling grid, the anchor frequency for the relative mapping
+                mode, the clipping threshold, the lost probability threshold, and the
+                duration of the filtered noise.
             </p>
             
             <p>
-            In terms of environmental parameters, the user first switches between
-            the <strong>classical</strong> or <strong>quantum</strong> regime.
+                In terms of environmental parameters, the user first switches between
+                the <strong>classical</strong> or <strong>quantum</strong> regime.
             </p>
             
             <p>
-            In the classical regime, they can control the dimensionality of the
-            system (one-, two-, or three-dimensional), the box lengths in meters,
-            the temperature of the environment (Kelvin), the boundary condition
-            (hard or periodic), the frequency mapping method (relative or absolute),
-            and the scale factor to use in absolute mode (audio Hz per transit Hz).
-            Then, the user is able to list the species types and numbers from a
-            pre-built lookup table or as custom entries (custom:amu).
+                In the classical regime, they can control the dimensionality of the
+                system (one-, two-, or three-dimensional), the box lengths in meters,
+                the temperature of the environment (Kelvin), the boundary condition
+                (hard or periodic), the frequency mapping method (relative or absolute),
+                and the scale factor to use in absolute mode (audio Hz per transit Hz).
+                Then, the user is able to list the species types and numbers from a
+                pre-built lookup table or as custom entries for the classical regime 
+                (custom:amu).
             </p>
             
             <p>
-            In the quantum regime, users can similarly control the diemsnionality
-            of the system, the box size (in meters, but typically in this regime
-            nanometers is recommended), the temperature (Kelvin), the boundary
-            condition (again, hard or periodic), the frequency mapping (relative
-            or absolute), and the scale factor in absolute mode (audio Hz per
-            transit Hz). In the quantum regime, the simulation only allows for
-            one particle species in the environment, which is to say NO particle
-            mixing. Thus, the user selects the particle species from the following:
-            Fermions — electron, proton, neutron, He-3, Li-6, K-40, or Massive bosons —
-            He-4, Li-7, Na-23, K-39, Rb-87. Then, the user is able to
-            select the number of particles, the thermal energy cutoff (number of
-            unoccupied levels kept), and then safety limits on memory for size
-            constraints.
+                In the quantum regime, users can similarly control the diemsnionality
+                of the system, the box size (in meters, but typically in this regime
+                nanometers is recommended), the temperature (Kelvin), the boundary
+                condition (again, hard or periodic), the frequency mapping (relative
+                or absolute), and the scale factor in absolute mode (audio Hz per
+                transit Hz). In the quantum regime, the simulation only allows for
+                one particle species in the environment, which is to say 
+                <span style="text-decoration: underline;">no</span> particle
+                mixing. The user then selects the particle species from the following:
+                Fermions — electron, proton, neutron, He-3, Li-6, K-40, or Massive bosons —
+                He-4, Li-7, Na-23, K-39, Rb-87. After this selection, the user is able to
+                choose the number of particles, and the thermal energy cutoff (number of
+                unoccupied levels kept).
             </p>
             </section>
             
@@ -145,33 +146,31 @@
             <h3>Regime Differentiation</h3>
             
             <p>
-            The following sections are distinguished in their regime by several
-            key assumptions. Firstly, a classical gas is well approximated by
-            Maxwell-Boltzmann statistics in the scenario in which the thermal
-            De Broglie wavelength, given by
+                The following sections are distinguished in their regime by several
+                key assumptions. Firstly, a classical gas is well approximated by
+                Maxwell-Boltzmann statistics in the scenario in which the thermal
+                De Broglie wavelength, given by            
+                <div class="equation">
+                    \[
+                    \lambda = \frac{h}{\sqrt{2\pi m k_{b}T}},
+                    \tag{1}
+                    \label{eq:ThermDeBrog}
+                    \]
+                </div>
             </p>
-            
-            <div class="equation">
-            \[
-            \lambda = \frac{h}{\sqrt{2\pi m k_{b}T}},
-            \tag{1}
-            \label{eq:ThermDeBrog}
-            \]
-            </div>
-            
+                
             <p>
             is much less than the average spacing between particles. This collapses
             at either very low temperatures, in which the thermal wavelength becomes
             very large. The classical gas approximation also requires low densities,
-            given by the condition
+            given by the condition                        
+                <div class="equation">
+                    \[
+                    N \prod_{a=1}^d \Big(\frac{\lambda}{L_{a}}\Big) \ll 1.
+                    \]
+                </div>
             </p>
-            
-            <div class="equation">
-            \[
-            N \prod_{a=1}^d \Big(\frac{\lambda}{L_{a}}\Big) \ll 1.
-            \]
-            </div>
-            
+                
             <p>
             At very high densities, which can occur at low temperatures or very
             small box dimensions, the gas becomes degenerate, and begins to obey
@@ -183,16 +182,15 @@
             
             <p>
             It is also important to note that the classical regime is considered
-            in the non-relativistic limit, which is such that:
+            in the non-relativistic limit, which is such that:                        
+                <div class="equation">
+                    \[
+                    k_{b}T \ll mc^2
+                    \tag{2}
+                    \label{eq:RelLimit}
+                    \]
+                </div>
             </p>
-            
-            <div class="equation">
-            \[
-            k_{b}T \ll mc^2
-            \tag{2}
-            \label{eq:RelLimit}
-            \]
-            </div>
             </section>
             
             <section>
