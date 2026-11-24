@@ -530,9 +530,9 @@
         <section>
             <h2>Function-by-Function Breakdown</h2>
             <p>The following section will discuss the implementation, method, and physics behind 
-                each function used. Several simple functions, like the lookup table functions, will 
+                a few of the functions used. Several simpler functions, like the lookup table functions, will 
                 be omitted from this discussion for brevity. They can be scrutinized in detail in the 
-                code, if desired!
+                code, if desired! 
             </p>
             
             <div class="accordion">
@@ -644,7 +644,53 @@
                   <details class="accordion-item nested">
                     <summary class="accordion-header">solveContinuumPotential</summary>
                     <div class="accordion-content">
-                      <p>More nested content.</p>
+                      <p>
+                          solveContinuumPotential works by guessing the chemical potential and then refining the search.
+                          For the fermion case, it calls estimateFermiKineticEnergy, which determines the chemical potential 
+                          by assuming the system is at absolute zero, which gives \(\mu\) as the integral is bounded by 
+                          \(\mu = E_{F}\). Then, it iterates over updating bounds to find when the integral evaluates to 
+                          the number density (all states are filled). 
+                      </p>
+                      <p>
+                          The boson case works similarly, but first checks for the case in which the system is three-dimensional, 
+                          in which it automatically fixes the max thermal density when \(\mu = 0\), as the one- and two-dimensional 
+                          bosonic distributions will never condense. 
+                      </p>
+                      <p>
+                          It then checks if the number density is already greater than the max thermal density, which inidcates the divergence 
+                          of probability in the ground state. If this is not the case, then the function will iteratively update its 
+                          bounds to identify what \(\mu\) must be for the number density to be filled. 
+                      </p>
+                    </div>
+                  </details>
+
+                  <details class="accordion-item nested">
+                    <summary class="accordion-header">integrateOccupation</summary>
+                    <div class="accordion-content">
+                      <p>
+                          integrateOccupation is simply a helper function for the numerical integration of 
+                          <div class="equation">
+                              \[
+                              \int p^{d-} \cdot f(E(p)) dp
+                              \]
+                          </div>
+                      </p>
+                    </div>
+                  </details>
+
+                  <details class="accordion-item nested">
+                    <summary class="accordion-header">continuumOccupation</summary>
+                    <div class="accordion-content">
+                      <p>
+                          continuumOccupation is simply a helper function for the distribution  
+                          <div class="equation">
+                              \[
+                              f(E) = \frac{1}{\exp{(E - \mu) / k_{b}T} \pm 1}
+                              \]
+                          </div>
+                          Note that MATLAB prefers expm1 for the bosonic case as it handles floating 
+                          points better than exp(x) - 1. 
+                      </p>
                     </div>
                   </details>
                     
