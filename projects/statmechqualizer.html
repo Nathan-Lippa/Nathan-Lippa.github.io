@@ -61,12 +61,14 @@
             clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
         </iframe>
+        
         <section class="downloads">
             <h2>Project Files</h2>
             <ul>
                 <li><a href="../downloads/statmechqualizerprojectfiles.zip">Download my files! (.m and .wav)</a></li>
             </ul>
         </section>
+        
         <section>
             <h2>Introduction and Objectives</h2>
             <p>The motivation for this project came from a recognition in class that many
@@ -84,9 +86,10 @@
               (Maxwell-Boltzmann distributions, Fermi-Dirac distributions,
               and Bose-Einstein distributions).
             </p>
+            
             <p>Thus, the objectives of this project were to design filters for each of
               these distinct scenarios!
-            </p>
+            </p>            
         </section>
 
         <section>
@@ -167,6 +170,7 @@
                 <div class="equation">
                     \[
                     N \prod_{a=1}^d \Big(\frac{\lambda}{L_{a}}\Big) \ll 1.
+                    \tag{2}
                     \]
                 </div>
             </p>
@@ -186,7 +190,7 @@
                 <div class="equation">
                     \[
                     k_{b}T \ll mc^2
-                    \tag{2}
+                    \tag{3}
                     \label{eq:RelLimit}
                     \]
                 </div>
@@ -210,9 +214,10 @@
             
             <div class="equation">
             \[
-            P(v) =
-            \frac{(v^{d-1})\,(e^{-mv^2/2k_{b}T})}
-            {(2^{d/2-1})\,(\frac{k_{B}T}{m})^{d/2}\,\Gamma(d/2)},
+                P(v) =
+                \frac{(v^{d-1})\,(e^{-mv^2/2k_{b}T})}
+                {(2^{d/2-1})\,(\frac{k_{B}T}{m})^{d/2}\,\Gamma(d/2)},
+                \tag{4}
             \]
             </div>
             
@@ -222,12 +227,13 @@
             </p>
             
             <div class="equation">
-            \[
-            \langle v\rangle =
-            \sqrt{\frac{2k_{b}T}{m}}\,
-            \frac{\Gamma\!\left(\tfrac{d+1}{2}\right)}
-            {\Gamma\!\left(\tfrac{d}{2}\right)}.
-            \]
+                \[
+                    \langle v\rangle =
+                    \sqrt{\frac{2k_{b}T}{m}}\,
+                    \frac{\Gamma\!\left(\tfrac{d+1}{2}\right)}
+                    {\Gamma\!\left(\tfrac{d}{2}\right)}.
+                    \tag{5}
+                \]
             </div>
             
             <p>
@@ -235,11 +241,12 @@
             </p>
             
             <div class="equation">
-            \[
-            \nu = \frac{v}{\tau L_{\text{eff}}},
-            \qquad
-            L_{\text{eff}} = \Big(\prod_{a=1}^{d} L_a\Big)^{1/d},
-            \]
+                \[
+                    \nu = \frac{v}{\tau L_{\text{eff}}},
+                    \qquad
+                    L_{\text{eff}} = \Big(\prod_{a=1}^{d} L_a\Big)^{1/d},
+                    \tag{6}
+                \]
             </div>
             
             <p>
@@ -248,11 +255,12 @@
             </p>
             
             <div class="equation">
-            \[
-            P(\nu) = \sum_s x_s\, P_s(\nu),
-            \qquad
-            x_s = \frac{N_s}{\sum_{s'} N_{s'}},
-            \]
+                \[
+                    P(\nu) = \sum_s x_s\, P_s(\nu),
+                    \qquad
+                    x_s = \frac{N_s}{\sum_{s'} N_{s'}},
+                    \tag{7}
+                \]
             </div>
             
             <p>
@@ -260,12 +268,13 @@
             </p>
             
             <div class="equation">
-            \[
-            \kappa = \frac{f_\text{anchor}}{\langle\nu\rangle_\text{mix}},
-            \qquad
-            \langle\nu\rangle_\text{mix}
-            = \sum_s x_s\,\frac{\langle v_s\rangle}{\tau L_\text{eff}},
-            \]
+                \[
+                    \kappa = \frac{f_\text{anchor}}{\langle\nu\rangle_\text{mix}},
+                    \qquad
+                    \langle\nu\rangle_\text{mix}
+                    = \sum_s x_s\,\frac{\langle v_s\rangle}{\tau L_\text{eff}},
+                    \tag{8}
+                \]
             </div>
             
             <p>
@@ -285,9 +294,10 @@
             </p>
             
             <div class="equation">
-            \[
-            P(\nu) = P(v(\nu))\,\dfrac{dv}{d\nu}.
-            \]
+                \[
+                    P(\nu) = P(v(\nu))\,\dfrac{dv}{d\nu}.
+                    \tag{9}
+                \]
             </div>
             
             </section>
@@ -300,15 +310,16 @@
             </p>
             
             <div class="equation">
-            \[
-            p_a = \frac{h\, n_a}{\tau L_a},
-            \qquad
-            n_a =
-            \begin{cases}
-            1, 2, \dots & \text{hard walls} \\
-            0, \pm1, \pm2, \dots & \text{periodic,}
-            \end{cases}
-            \]
+                \[
+                    p_a = \frac{h\, n_a}{\tau L_a},
+                    \qquad
+                    n_a =
+                    \begin{cases}
+                    1, 2, \dots & \text{hard walls} \\
+                    0, \pm1, \pm2, \dots & \text{periodic,}
+                    \end{cases}
+                    \tag{10, 11}
+                \]
             </div>
             
             <p>
@@ -316,11 +327,12 @@
             </p>
             
             <div class="equation">
-            \[
-            E = \sqrt{p^2c^2 + m^2c^4} - mc^2,
-            \qquad
-            p^2 = \sum_a p_a^2.
-            \]
+                \[
+                    E = \sqrt{p^2c^2 + m^2c^4} - mc^2,
+                    \qquad
+                    p^2 = \sum_a p_a^2.
+                    \tag{12}
+                \]
             </div>
             
             <p>
@@ -328,9 +340,10 @@
             </p>
             
             <div class="equation">
-            \[
-            f(E) = \frac{1}{e^{(E-\mu)/kT} \pm 1},
-            \]
+                \[
+                    f(E) = \frac{1}{e^{(E-\mu)/kT} \pm 1},
+                    \tag{13}
+                \]
             </div>
             
             <p>
@@ -341,9 +354,10 @@
             </p>
             
             <div class="equation">
-            \[
-            g\sum_i f(E_i) = N,
-            \]
+                \[
+                    g\sum_i f(E_i) = N,
+                    \tag{14}
+                \]
             </div>
             
             <p>
@@ -353,11 +367,12 @@
             </p>
             
             <div class="equation">
-            \[
-            w_i = \frac{g\, f(E_i)}{\sum_j g\, f(E_j)},
-            \qquad
-            \langle E\rangle = \sum_i w_i E_i.
-            \]
+                \[
+                    w_i = \frac{g\, f(E_i)}{\sum_j g\, f(E_j)},
+                    \qquad
+                    \langle E\rangle = \sum_i w_i E_i.
+                    \tag{15}
+                \]
             </div>
             
             <p>
@@ -370,9 +385,10 @@
             </p>
             
             <div class="equation">
-            \[
-            \langle E\rangle = \frac{d}{d+2}\,E_F.
-            \]
+                \[
+                    \langle E\rangle = \frac{d}{d+2}\,E_F.
+                    \tag{16}
+                \]
             </div>
             
             <p>
@@ -383,13 +399,14 @@
             </p>
             
             <div class="equation">
-            \[
-            T_c =
-            \frac{2\pi\hbar^2}{m k_B}
-            \left(\frac{n}{g\,\zeta(3/2)}\right)^{2/3},
-            \qquad
-            \zeta(3/2)\approx 2.612,
-            \]
+                \[
+                    T_c =
+                    \frac{2\pi\hbar^2}{m k_B}
+                    \left(\frac{n}{g\,\zeta(3/2)}\right)^{2/3},
+                    \qquad
+                    \zeta(3/2)\approx 2.612,
+                    \tag{17}
+                \]
             </div>
             
             <p>
