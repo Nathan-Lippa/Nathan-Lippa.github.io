@@ -562,7 +562,7 @@
                           calculation:
                           <div class="equation">
                             \[
-                            dN = \frac{g * V * S_{d}}{h^{d}} * p^{d-1} dp.
+                            dN = \frac{g\cdot V\cdot S_{d}}{h^{d}} \cdot p^{d-1} dp.
                             \]
                           </div>
                           where g is spin degeneracy, \(S_{d}\) is the surface area of the 
@@ -593,10 +593,12 @@
                           Now, we can compute probDensityHz by the computaiton of the following:
                           <div class="equation">
                               \[
-                              P(\nu) = \frac{g * V * S_{d}}{h^{d} * N} * p^{d-1} * f(e) * \frac{dp}{de} * \frac{de}{d\nu}
+                              P(\nu) = \frac{g \cdot S_{d}}{h^{d} \cdot n} \cdot p^{d-1} \cdot f(e) \cdot \frac{dp}{de} \cdot \frac{de}{d\nu}
                               \]
                           </div>
-                          where \(e = \frac{\nu}{\text{audioHzPerJoule}}\), \(\frac{dp}{de} = \frac{1}{v}\)
+                          where \(e = \frac{\nu}{\text{audioHzPerJoule}}\), \(\frac{dp}{de} = \frac{1}{v}\), 
+                          \(\frac{de}{d\nu} = \frac{1}{\text{audioHzPerJoule}}\), and \(n = \frac{N}{V}\) ( 
+                          number density). 
                       </p>
                       <p>
                           The following block first computes the nyquistMomentum, which is 
@@ -607,7 +609,15 @@
                           To determine probDensityPerHz, which is our main goal, we must evaluate the 
                           occupation of each frequency cell in phase-space first. So, we convert our audio 
                           grid to an energy grid, and then convert it again to a momentum grid based on our 
-                          particle mass. Then, we convert it again to velocity for our 
+                          particle mass. Then, we convert it again to velocity for \(\frac{dp}{de}\), which 
+                          gives us all of the necessary values to compute probDensityPerHz! There's also a safeguard 
+                          that I implemented because of some strange divergence behaviour at the zero frequency. 
+                      </p>
+                      <p>
+                          Lastly, before returning probDensityPerHz, we have a diagnostic check for lost probabilities 
+                          above the Nyquist frequency, which compares the integral across all momenta vs the integral 
+                          up to nyquistMomentum to let the user know if more than their inputted threshold of probability 
+                          is lost. 
                       </p>
                     </div>
                   </details>
