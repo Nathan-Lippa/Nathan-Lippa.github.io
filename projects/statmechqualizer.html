@@ -794,11 +794,18 @@
             <p>
                 The most obvious next step, is in my opinion, to create an app interface for this project. 
                 The current implementation method is very poor from a user-experience perspective, and thus 
-                I would argue the script as-is is pretty much unusable for any applications other than 
-                curiosity. On the note of applicability, I think that another improvement that could be made 
-                would be the ability to do live input. While there might be some issues regarding delay 
-                (1025-tap FIR filter at 44.1kHz has a delay of 512 samples, and thus 11.61ms, which is 
-                audibly perceptible).
+                I would argue the script as-is is quite inefficent for any applications other than 
+                curiosity. Ideally, this app interface would be continuously updating (such as through a slider 
+                input), but even an implementation that involves a more intuitive parameter menu and button to 
+                create the filter would be an improvement over the current version. 
+            </p>
+            <p>
+                On the note of applicability, I think that another improvement that could be made 
+                would be the ability to do live input. However, there might be some issues regarding delay, as 
+                an 1025-tap FIR filter at 44.1kHz has a delay of 512 samples, and thus 11.61ms, which is 
+                audibly perceptible. In this scenario, it might be worth investigating the tradeoff between 
+                the exact frequency response offered by finite impulse response filters and the computational 
+                speed offered by infinite impulse response filters. 
             </p>
         </section>
     </main>
