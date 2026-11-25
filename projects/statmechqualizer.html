@@ -365,7 +365,7 @@
             
             <div class="equation">
                 \[
-                    \langle E\rangle = \frac{\int E(p)\cdot p^{d-1}\cdot f(E(p)) dp}{int p^{d-1} f(E(p)) dp}.
+                    \langle E\rangle = \frac{\int E(p)\cdot p^{d-1}\cdot f(E(p)) dp}{\int p^{d-1} f(E(p)) dp}.
                     \tag{14}
                 \]
             </div>
@@ -792,7 +792,13 @@
         <section>
             <h2>Next Steps</h2>
             <p>
-                
+                The most obvious next step, is in my opinion, to create an app interface for this project. 
+                The current implementation method is very poor from a user-experience perspective, and thus 
+                I would argue the script as-is is pretty much unusable for any applications other than 
+                curiosity. On the note of applicability, I think that another improvement that could be made 
+                would be the ability to do live input. While there might be some issues regarding delay 
+                (1025-tap FIR filter at 44.1kHz has a delay of 512 samples, and thus 11.61ms, which is 
+                audibly perceptible).
             </p>
         </section>
     </main>
