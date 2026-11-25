@@ -104,12 +104,11 @@
             </p>
             
             <p>
-                In regards to the audio parameters, the user has control over thee sample
+                In regards to the audio parameters, the user has control over the sample
                 rate, finite impulse response length (number of taps, must be odd), the
                 type of window (Hamming, Hanning, or Blackman), the size of the
                 frequency-sampling grid, the anchor frequency for the relative mapping
-                mode, the clipping threshold, the lost probability threshold, and the
-                duration of the filtered noise.
+                mode, the clipping threshold, and the lost probability threshold.
             </p>
             
             <p>
@@ -134,14 +133,14 @@
                 nanometers is recommended), the temperature (Kelvin), the boundary
                 condition (again, hard or periodic), the frequency mapping (relative
                 or absolute), and the scale factor in absolute mode (audio Hz per
-                transit Hz). In the quantum regime, the simulation only allows for
+                Joule). In the quantum regime, the simulation only allows for
                 one particle species in the environment, which is to say 
                 <span style="text-decoration: underline;">no particle mixing </span>.
                 The user then selects the particle species from the following:
                 Fermions — electron, proton, neutron, He-3, Li-6, K-40, or Massive bosons —
                 He-4, Li-7, Na-23, K-39, Rb-87. After this selection, the user is able to
-                choose the number of particles, and the thermal energy cutoff (number of
-                unoccupied levels kept).
+                choose the number of particles, and the thermal energy cutoff (used for help 
+                with numerical integration).
             </p>
             </section>
             
@@ -152,29 +151,27 @@
                 The following sections are distinguished in their regime by several
                 key assumptions. Firstly, a classical gas is well approximated by
                 Maxwell-Boltzmann statistics in the scenario in which the thermal
-                De Broglie wavelength, given by            
-                <div class="equation">
+                De Broglie wavelength, given by    
+            </p>
+                 <div class="equation">
                     \[
                     \lambda = \frac{h}{\sqrt{2\pi m k_{b}T}},
                     \tag{1}
                     \label{eq:ThermDeBrog}
                     \]
-                </div>
-            </p>
-                
+                </div>                
             <p>
             is much less than the average spacing between particles. This collapses
             at either very low temperatures, in which the thermal wavelength becomes
             very large. The classical gas approximation also requires low densities,
-            given by the condition                        
+            given by the condition      
+            </p>
                 <div class="equation">
                     \[
                     N \prod_{a=1}^d \Big(\frac{\lambda}{L_{a}}\Big) \ll 1.
                     \tag{2}
                     \]
                 </div>
-            </p>
-                
             <p>
             At very high densities, which can occur at low temperatures or very
             small box dimensions, the gas becomes degenerate, and begins to obey
@@ -186,7 +183,8 @@
             
             <p>
             It is also important to note that the classical regime is considered
-            in the non-relativistic limit, which is such that:                        
+            in the non-relativistic limit, which is such that:  
+            </p>
                 <div class="equation">
                     \[
                     k_{b}T \ll mc^2
@@ -194,7 +192,6 @@
                     \label{eq:RelLimit}
                     \]
                 </div>
-            </p>
             </section>
             
             <section>
@@ -227,7 +224,7 @@
             
             <div class="equation">
                 \[
-                     v\rangle =
+                     \langle v\rangle =
                     \sqrt{\frac{2k_{b}T}{m}}\,
                     \frac{\Gamma\!\left(\tfrac{d+1}{2}\right)}
                     {\Gamma\!\left(\tfrac{d}{2}\right)}.
@@ -268,10 +265,10 @@
             
             <div class="equation">
                 \[
-                    \kappa = \frac{f_\text{anchor}}{\nu\rangle_\text{mix}},
+                    \kappa = \frac{f_\text{anchor}}{\langle \nu\rangle_\text{mix}},
                     \qquad
                     \nu\rangle_\text{mix}
-                    = \sum_s x_s\,\frac{ v_s\rangle}{\tau L_\text{eff}},
+                    = \sum_s x_s\,\frac{\langle v_s\rangle}{\tau L_\text{eff}},
                     \tag{8}
                 \]
             </div>
@@ -354,13 +351,14 @@
             
             <div class="equation">
                 \[
-                    g\int f(E) dE = N,
+                    g\int \rho(E) \cdot f(E) dE = N,
                     \tag{13}
                 \]
             </div>
             
             <p>
-            where \(g\) is the spin degeneracy from the lookup table. Each level
+            where \(g\) is the spin degeneracy from the lookup table and \(\rho\) is the 
+            continuum density of states. Each level
             then carries a probabilistic weight and therefore the distribution
             has mean energy
             </p>
@@ -390,31 +388,11 @@
             
             <p>
             Anchoring \(\langle E\rangle\) therefore puts the lowpass cutoff at
-            \(\dfrac{d+2}{d}\) times the anchor frequency. It is worth noting
-            the special case in which the temperature of a three-dimensional
-            system is below \(T_c\), in which
-            </p>
-            
-            <div class="equation">
-                \[
-                    T_c =
-                    \frac{2\pi\hbar^2}{m k_B}
-                    \left(\frac{n}{g\,\zeta(3/2)}\right)^{2/3},
-                    \qquad
-                    \zeta(3/2)\approx 2.612,
-                    \tag{16}
-                \]
-            </div>
-            
-            <p>
-            where \(\zeta(3/2)\) is the Riemann zeta function. Below \(T_c\),
-            a boson gas puts a macroscopic fraction of its particles in the
-            lowest energy level, which appears as a narrow peak.
+            \(\dfrac{d+2}{d}\) times the anchor frequency, in the non-relativistic limit. 
             </p>
             
             <p>
-            It is also important to note that the code automatically shifts the
-            ground level energy state to zero.
+            It is also important to note that the ground level energy state is always zero.
             </p>
             </section>
             
@@ -432,7 +410,7 @@
                      width=500>
                 <figcaption>
                     Figure 1: Mirrored and appended frequency spectrum for input into
-                    MATLAB ifft. Box parameters: 30cm$^2$, hard boundary conditions,
+                    MATLAB ifft. Box parameters: 30cm$^3$, hard boundary conditions,
                     relative mapping centered at 4400Hz, and 2e24 Helium atoms,
                     1e24 Dinitrogen atoms, 3e23 Dioxygen atoms, 6e21 Argon atoms,
                     and 3e20 Carbon Dioxide atoms.
@@ -477,8 +455,8 @@
             <p>
             So, to handle to classical/quantum limit case, it seemed as though
             the most appropriate course of action was to separate the two regimes
-            and warn the user if their input parameters in one regime appeared
-            to fit better with the other regime.
+            and warn the user if their input parameters in the classical regime appeared
+            to fit better with the quantum regime.
             </p>
             
             <p>
@@ -510,9 +488,9 @@
                     rate of 44.1kHz:
                     <ul>
                       <li>Quantum regime</li>
-                      <li>Three-dimensional</li>
+                      <li>Two-dimensional</li>
                       <li>Temperature: 0.1K</li>
-                      <li>Box dimensions: [10 10 10]*1e-9</li>
+                      <li>Box dimensions: [10 10]*1e-9</li>
                       <li>Relative mapping: 4400Hz anchor</li>
                       <li>Particle species and count: 2500 protons</li>
                     </ul>
@@ -588,7 +566,7 @@
                       <p>
                           The third block is further conversions and calculations required to 
                           make the later blocks execute smoothly. For example, defining the 
-                          thermalSpeedScale as \(\sqrt(\frac{k_{b}T}{m}\) makes later steps 
+                          thermalSpeedScale as \(\sqrt{\frac{k_{b}T}{m}}\) makes later steps 
                           easier to read and follow. Ultimately, it determines the mixtureMeantransitFreq_Hz, 
                           which is used by the following block to determine audioHzPerTransitHz relative to 
                           the anchor frequency or based on the scale factor for the physical frequency. 
@@ -644,16 +622,14 @@
                           where g is spin degeneracy, \(S_{d}\) is the surface area of the 
                           unit sphere in d dimensions, \(p\) is momentum, \(h\) is the 
                           Planck constant, \(d\) is the dimensionality of the system, and 
-                          V is the phase-space volume. This volume cancels cleanly later down the 
-                          line when solving for the chemical potential, and is thus ignored during 
-                          computation.
+                          V is the box volume. V enters later during probPerIntegralUnit.
                       </p>
                       <p>
                           The next code block simply grabs system parameters for input into 
                           later helper functions.
                       </p>
                       <p>
-                          After this, the function calls solveContinuumPotential to obtain the
+                          After this, the function calls solveContinuumChemicalPotential to obtain the
                           chemical potential \(\mu\) for the system from the number density 
                           \(n = \frac{N}{V}\), which calls integrateOccupation to do. It then 
                           also calls integrateOccupation to obtain the mean energy of the system, 
@@ -678,7 +654,7 @@
                       </p>
                       <p>
                           The following block first computes the nyquistMomentum, which is 
-                          simply the highest allowed momentum for the system. Then, the scale factor 
+                          simply the momentum associated with the Nyquist frequency. Then, the scale factor 
                           for conversion between the integral occupation form and probability is obtained.
                       </p>
                       <p>
@@ -699,14 +675,15 @@
                   </details>
             
                   <details class="accordion-item nested">
-                    <summary class="accordion-header">solveContinuumPotential</summary>
+                    <summary class="accordion-header">solveContinuumChemicalPotential</summary>
                     <div class="accordion-content">
                       <p>
-                          solveContinuumPotential works by guessing the chemical potential and then refining the search.
+                          solveContinuumChemicalPotential works by guessing the chemical potential and then refining the search.
                           For the fermion case, it calls estimateFermiKineticEnergy, which determines the chemical potential 
                           by assuming the system is at absolute zero, which gives \(\mu\) as the integral is bounded by 
-                          \(\mu = E_{F}\). Then, it iterates over updating bounds to find when the integral evaluates to 
-                          the number density (all states are filled). 
+                          \(\mu = E_{F}\). The code then uses this as the upper bound for its search for the true \(\mu\). 
+                          Then, it iterates over updating bounds to find when the integral evaluates to 
+                          the number density. 
                       </p>
                       <p>
                           The boson case works similarly, but first checks for the case in which the system is three-dimensional, 
@@ -782,7 +759,8 @@
                           circular indices (the length of which is given by the user inputted 
                           numberOfTaps). Then, a window of the selected variety (Hanning, 
                           Hamming, or Blackman) is applied to the truncated kernel. Finally, 
-                          the kernel is normalized, and the input signal is filtered according 
+                          the kernel is normalized according to the maximum amplitude of the input 
+                          signal, and then the input signal is filtered according 
                           to these determined parameters!
                       </p>
                     </div>
@@ -808,7 +786,14 @@
                 </div>
               </details>
             </div>
+            
+        </section>
 
+        <section>
+            <h2>Next Steps</h2>
+            <p>
+                
+            </p>
         </section>
     </main>
 </body>
